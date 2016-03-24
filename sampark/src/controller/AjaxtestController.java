@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import dao.CfuserDAO;
 import dao.DepartmentsDAO;
 import mypack.cfusers;
+import mypack.departments;
 import mypack.languages;
 
 
@@ -68,6 +69,24 @@ public class AjaxtestController {
 				result+=cf.getLang_name()+"*";
 				//System.out.println(cf.getUser_name()+cf.getUser_name());
 			}
+		 System.out.println(result);
+		 return result;
+		 
+	 }
+	 
+	 @RequestMapping(value = "/depart",method = RequestMethod.POST)
+	 @ResponseBody    
+	 public String getdepart(HttpSession session) {
+		 String result="";
+		 String state=(String)session.getAttribute("state");
+		 List <departments> deptlist=departdao.getalllist(state);
+		 Iterator<departments> CrunchifyIterator = deptlist.iterator();
+		 while (CrunchifyIterator.hasNext()) {
+				departments cf=CrunchifyIterator.next();
+				result+=cf.getDept_name()+"*";
+				//System.out.println(cf.getUser_name()+cf.getUser_name());
+			}
+		 System.out.println(result);
 		 return result;
 		 
 	 }

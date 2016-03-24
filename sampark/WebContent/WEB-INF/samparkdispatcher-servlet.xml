@@ -42,7 +42,8 @@
                 <value>mypack.service_status</value>
                 <value>mypack.m_states</value>
                 <value>mypack.departments</value>
-                <value>mypack.serv</value>
+                <value>mypack.languages</value>
+                <value>mypack.common_doc</value>
             </list>
         </property>
     </bean>

@@ -8,8 +8,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "departments")
 public class departments {
-	private  int id;
 	@Id @GeneratedValue
+	private  int id;
 	private String dept_id;
 	private String dept_name;
 	private String state_id;

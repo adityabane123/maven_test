@@ -77,6 +77,7 @@
             }
 
         </style>
+        <script src="${pageContext.servletContext.contextPath}/js/jquery-1.12.0.js"></script>
 <script>
 
 function addRow() {
@@ -166,15 +167,15 @@ function addTable() {
                         </td>
                     </tr>
 				<tr>
-					<td>Select Department: </td>
-					<td><select id="ch" name="ch">    
+					<td class = "heading">Select Department: </td>
+					<td class = "input_field"><select id="ch" name="ch">    
                     <option value="select_depa">Select Department</option>   
 </select></td>
 				</tr>
                     <tr id="tr_service_name">
                         <td class = "heading">Service Name	:</td>
                         <td class = "input_field">
-                            <input type="text" name="Service_name" id="Service_name" onblur="a12()" class = "input_box">
+                            <input type="text" name="Service_name" id="Service_name" class = "input_box">
                         </td>
                     </tr>
                     <tr id="tr_cat_name"> 
@@ -271,6 +272,7 @@ function addTable() {
                     </tr>-->
                 </table>
             </form>
+            <input type="button" value="Add" onclick="aja1()"/>
 <script>
                 $(window).load(function () {
                     clearall();
@@ -279,6 +281,26 @@ function addTable() {
                     loadlang();
 
                 });
+
+                function aja1()
+                {
+                	alert("hi");
+                   $.ajax({
+                	              type:"POST",
+                                  url: "${pageContext.request.contextPath}/result/ajaxtest.do",
+                                  success: function(data){
+                                	  alert("hi");
+                                	  alert(data);
+                                	  //$('#sub_cat').append(data);
+                //$("#sub_cat").css('visibility', 'visible');
+                          },
+                   error: function(e){
+                	                alert('Error: ' + e);
+                   }
+
+                  });
+
+                }
 
                 function clearall()
                 {
@@ -295,12 +317,11 @@ function addTable() {
 
                 function loadlang()
                 {
-
-                    var method = "languages";
                     $.ajax({
       	              type:"POST",
                         url: "${pageContext.request.contextPath}/result/lang.do",
                         success: function(data){
+                            alert(data);
                             var select = document.getElementById("input_languages");
                             var options = data.split("*");
                             var i;
@@ -314,8 +335,6 @@ function addTable() {
 
                                 }
                             }
-                      	  //$('#sub_cat').append(data);
-      //$("#sub_cat").css('visibility', 'visible');
                 },
          error: function(e){
       	                alert('Error: ' + e);
@@ -323,56 +342,33 @@ function addTable() {
 
         });
 
-                
+        }
 
-                }
-                function loadCategory()
-                {
-                    var method = "AllCategories";
-                    $.post("../dao/fetchCommonServiceInfo.php", {method: method}, function (data, status) {
-
-
-                        var AllCat = data.split("*");
-
-
-                        $("#category_name").autocomplete({
-                            source: AllCat
-                        });
-
-                    });
-                }
-
-                function loadServices()
-                {
-                    var method = "AllServices";
-                    $.post("../dao/fetchCommonServiceInfo.php", {method: method}, function (data, status) {
-
-
-                        var Allservices = data.split("*");
-
-            //alert(Allservices);
-                        $("#Service_name").autocomplete({
-                            source: Allservices
-                        });
-
-                    });
-                }
 
                 function loadDepartments()
                 {
-                    var method = "AllDept";
-                    $.post("../dao/fetchCommonServiceInfo.php", {method: method}, function (data, status) {
+                	$.ajax({
+        	              type:"POST",
+                          url: "${pageContext.request.contextPath}/result/depart.do",
+                          success: function(data){
+                              alert(data);
+                              var dept = data.split("*");
+                              var select = document.getElementById("ch");
+                              var options = data.split("*");
+                              var i;
+                              for (i = 0; i < options.length; i++) {
+                                  if (options[i]) {
+                                      var opt = options[i];
+                                      var el = document.createElement("option");
+                                      el.textContent = opt;
+                                      el.value = opt;
+                                      select.appendChild(el);
 
-
-                        var dept = data.split("*");
-
-            //alert(dept);
-                        $("#Department_name").autocomplete({
-                            source: dept
-                        });
-
-                    });
+                                  }
+                              }
                 }
+                	});
+                	}
 
 
                 function loadDocs() {

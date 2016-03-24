@@ -1,10 +1,13 @@
 package mypack;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 @Entity
+@Table(name = "languages")
 public class languages {
-	@Id
+	@Id @GeneratedValue
 	private int id;
 	private String lang_id;
 	private String lang_name;
@@ -27,15 +30,17 @@ public class languages {
 	public void setLang_name(String lang_name) {
 		this.lang_name = lang_name;
 	}
-	@Override
-	public String toString() {
-		return "languages [id=" + id + ", lang_id=" + lang_id + ", lang_name=" + lang_name + "]";
-	}
 	public String getState_id() {
 		return state_id;
 	}
 	public void setState_id(String state_id) {
 		this.state_id = state_id;
 	}
+	@Override
+	public String toString() {
+		return "languages [id=" + id + ", lang_id=" + lang_id + ", lang_name=" + lang_name + ", state_id=" + state_id
+				+ "]";
+	}
+	
 
 }
