@@ -8,6 +8,7 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Component;
 
 import mypack.cfusers;
+import mypack.m_states;
 @Component
 public class CfuserDAOImpl implements CfuserDAO{
 
@@ -37,6 +38,15 @@ public class CfuserDAOImpl implements CfuserDAO{
 		List<cfusers> list=new ArrayList<cfusers>();  
 		list=template.find("from cfusers m where m.authority='reviewer' and m.state=?",state);
 		return list; 
+	}
+
+	@Override
+	public String getstateid(String state) {
+		List<m_states> list=new ArrayList<m_states>();
+		list=template.find("from m_states j where j.state_name=?",state);
+		m_states ref=list.get(0);
+		return ref.getState_id(); 
+		
 	}
 
 }

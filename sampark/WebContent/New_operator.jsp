@@ -27,8 +27,8 @@ if(sevalue=="Operator")
                   success: function(data){
                 	  alert("hi");
                 	  alert(data);
-                	  //$('#sub_cat').append(data);
-//$("#sub_cat").css('visibility', 'visible');
+                	  $('#sub_cat').append(data);
+$("#sub_cat").css('visibility', 'visible');
           },
    error: function(e){
 	                alert('Error: ' + e);
@@ -61,11 +61,6 @@ $("#sub_cat").css('visibility', 'hidden');
                    </td>
                    <td><form:select name="sub_cat" id="sub_cat" path="assigned_officer_id">
                        </form:select></td></tr> 
-                    <tr>
-					<td align="left" width="20%">User Name </td>
-					<td align="left" width="40%"><form:input path="user_name" size="30"/></td>
-					<td align="left"><form:errors path="user_name" cssClass="error"/></td>
-				</tr>
 				    <tr>
 					<td align="left" width="20%">First Name </td>
 					<td align="left" width="40%"><form:input path="fname" size="30"/></td>

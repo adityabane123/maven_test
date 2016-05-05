@@ -13,6 +13,7 @@ public class departments {
 	private String dept_id;
 	private String dept_name;
 	private String state_id;
+	private String is_active;
 	public int getId() {
 		return id;
 	}
@@ -37,9 +38,17 @@ public class departments {
 	public void setState_id(String state_id) {
 		this.state_id = state_id;
 	}
+	public String getIs_active() {
+		return is_active;
+	}
+	public void setIs_active(String is_active) {
+		this.is_active = is_active;
+	}
 	@Override
 	public String toString() {
 		return "departments [id=" + id + ", dept_id=" + dept_id + ", dept_name=" + dept_name + ", state_id=" + state_id
-				+ "]";
+				+ ", is_active=" + is_active + "]";
 	}
+	
+	
 }

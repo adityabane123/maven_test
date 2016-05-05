@@ -10,7 +10,7 @@ public class languages {
 	@Id @GeneratedValue
 	private int id;
 	private String lang_id;
-	private String lang_name;
+	private String language;
 	private String state_id;
 	public int getId() {
 		return id;
@@ -24,11 +24,11 @@ public class languages {
 	public void setLang_id(String lang_id) {
 		this.lang_id = lang_id;
 	}
-	public String getLang_name() {
-		return lang_name;
+	public String getLanguage() {
+		return language;
 	}
-	public void setLang_name(String lang_name) {
-		this.lang_name = lang_name;
+	public void setLanguage(String language) {
+		this.language = language;
 	}
 	public String getState_id() {
 		return state_id;
@@ -38,9 +38,9 @@ public class languages {
 	}
 	@Override
 	public String toString() {
-		return "languages [id=" + id + ", lang_id=" + lang_id + ", lang_name=" + lang_name + ", state_id=" + state_id
+		return "languages [id=" + id + ", lang_id=" + lang_id + ", language=" + language + ", state_id=" + state_id
 				+ "]";
 	}
 	
-
+	
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -24,6 +25,8 @@ import mypack.service_status;
 @RequestMapping("/index")
 public class LoginController {
 
+	private static final Logger logger = Logger.getLogger(LoginController.class);
+	
 	List <service_status>mylist;
 
 	@Autowired
@@ -43,6 +46,10 @@ public class LoginController {
 @RequestMapping(method = RequestMethod.GET)
 public ModelAndView pro()
 	{
+	  if(logger.isDebugEnabled()){  
+		   logger.debug("Start debug");  
+		  }  
+		  logger.info("Going to run HelloLoggingController class GET");  
 cfusers cf=new cfusers();
 return new ModelAndView("index","login",cf);	
 	}
@@ -57,9 +64,13 @@ public ModelAndView confvoter(@Valid @ModelAttribute("login") cfusers cfuser, Bi
 	cfusers ref=cfuserdao.checklogin(cfuser);
 	session.setAttribute("username",ref.getUser_name());
 	session.setAttribute("state",ref.getState());
+	String state_id=cfuserdao.getstateid(ref.getState());
+	System.out.println(state_id);
 	session.setAttribute("authority",ref.getAuthority());
+	session.setAttribute("state_id", state_id);
 	
 	mylist=servicedao.getalllist();
+		  logger.info("Going to run HelloLoggingController class POST");  
 		return new ModelAndView("All_service","mylist",mylist);
 	//int id=Integer.parseInt(ref);
 	//List<Candidate>list=candao.can(id);

@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import dao.CfuserDAO;
 import dao.DepartmentsDAO;
 import mypack.cfusers;
+import mypack.common_doc;
 import mypack.departments;
 import mypack.languages;
 
@@ -61,15 +62,17 @@ public class AjaxtestController {
 	 @ResponseBody    
 	 public String getlang(HttpSession session) {
 		 String result="";
-		 String state=(String)session.getAttribute("state");
+		 String state=(String)session.getAttribute("state_id");
 		 List <languages> langlist=departdao.getlang(state);
 		 Iterator<languages> CrunchifyIterator = langlist.iterator();
 		 while (CrunchifyIterator.hasNext()) {
 				languages cf=CrunchifyIterator.next();
-				result+=cf.getLang_name()+"*";
+				result+="<option value='"+cf.getLang_id()+"'>"+cf.getLanguage()+"</option>";
+				//result+=cf.getLanguage()+"*";
 				//System.out.println(cf.getUser_name()+cf.getUser_name());
 			}
 		 System.out.println(result);
+		 System.out.println("------------------------");
 		 return result;
 		 
 	 }
@@ -78,17 +81,67 @@ public class AjaxtestController {
 	 @ResponseBody    
 	 public String getdepart(HttpSession session) {
 		 String result="";
-		 String state=(String)session.getAttribute("state");
+		 String state=(String)session.getAttribute("state_id");
 		 List <departments> deptlist=departdao.getalllist(state);
 		 Iterator<departments> CrunchifyIterator = deptlist.iterator();
 		 while (CrunchifyIterator.hasNext()) {
 				departments cf=CrunchifyIterator.next();
-				result+=cf.getDept_name()+"*";
+				result+="<option value='"+cf.getDept_id()+"'>"+cf.getDept_name()+"</option>";
+				//result+=cf.getDept_name()+"*";
 				//System.out.println(cf.getUser_name()+cf.getUser_name());
 			}
 		 System.out.println(result);
+		 System.out.println("------------------------");
+		 return result;
+		 
+	 }
+	 
+	 @RequestMapping(value = "/common",method = RequestMethod.POST)
+	 @ResponseBody    
+	 public String getdocs() {
+		 String result="";
+		 List <common_doc> deptlist=departdao.getdocs();
+		 Iterator<common_doc> CrunchifyIterator = deptlist.iterator();
+		 while (CrunchifyIterator.hasNext()) {
+			 common_doc cf=CrunchifyIterator.next();
+				result+=cf.getDoc_name()+",";
+				//System.out.println(cf.getUser_name()+cf.getUser_name());
+			}
+		 System.out.println(result);
+		 System.out.println("------------------------");
+		 return result;
+		 
+	 }
+	 
+	 @RequestMapping(value = "/deptcheck",method = RequestMethod.POST)
+	 @ResponseBody    
+	 public String deptcheck() {
+		 String result="0";
+		 /*List <common_doc> deptlist=departdao.getdocs();
+		 Iterator<common_doc> CrunchifyIterator = deptlist.iterator();
+		 while (CrunchifyIterator.hasNext()) {
+			 common_doc cf=CrunchifyIterator.next();
+				result+=cf.getDoc_name()+",";
+				//System.out.println(cf.getUser_name()+cf.getUser_name());
+			}
+		 System.out.println(result);*/
 		 return result;
 		 
 	 }
 
+	 @RequestMapping(value = "/Newserv",method = RequestMethod.POST)
+	 @ResponseBody    
+	 public String saveserv() {
+		 String result="0";
+		 /*List <common_doc> deptlist=departdao.getdocs();
+		 Iterator<common_doc> CrunchifyIterator = deptlist.iterator();
+		 while (CrunchifyIterator.hasNext()) {
+			 common_doc cf=CrunchifyIterator.next();
+				result+=cf.getDoc_name()+",";
+				//System.out.println(cf.getUser_name()+cf.getUser_name());
+			}
+		 System.out.println(result);*/
+		 return result;
+		 
+	 }
 }

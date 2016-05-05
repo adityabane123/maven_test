@@ -272,35 +272,14 @@ function addTable() {
                     </tr>-->
                 </table>
             </form>
-            <input type="button" value="Add" onclick="aja1()"/>
 <script>
                 $(window).load(function () {
-                    clearall();
+                    //clearall();
                     loadDocs();
                     loadDepartments();
                     loadlang();
 
                 });
-
-                function aja1()
-                {
-                	alert("hi");
-                   $.ajax({
-                	              type:"POST",
-                                  url: "${pageContext.request.contextPath}/result/ajaxtest.do",
-                                  success: function(data){
-                                	  alert("hi");
-                                	  alert(data);
-                                	  //$('#sub_cat').append(data);
-                //$("#sub_cat").css('visibility', 'visible');
-                          },
-                   error: function(e){
-                	                alert('Error: ' + e);
-                   }
-
-                  });
-
-                }
 
                 function clearall()
                 {
@@ -321,20 +300,9 @@ function addTable() {
       	              type:"POST",
                         url: "${pageContext.request.contextPath}/result/lang.do",
                         success: function(data){
-                            alert(data);
+                        	alert(data);
                             var select = document.getElementById("input_languages");
-                            var options = data.split("*");
-                            var i;
-                            for (i = 0; i < options.length; i++) {
-                                if (options[i]) {
-                                    var opt = options[i];
-                                    var el = document.createElement("option");
-                                    el.textContent = opt;
-                                    el.value = opt;
-                                    select.appendChild(el);
-
-                                }
-                            }
+                           select.appendChild(data);
                 },
          error: function(e){
       	                alert('Error: ' + e);
@@ -352,35 +320,21 @@ function addTable() {
                           url: "${pageContext.request.contextPath}/result/depart.do",
                           success: function(data){
                               alert(data);
-                              var dept = data.split("*");
                               var select = document.getElementById("ch");
-                              var options = data.split("*");
-                              var i;
-                              for (i = 0; i < options.length; i++) {
-                                  if (options[i]) {
-                                      var opt = options[i];
-                                      var el = document.createElement("option");
-                                      el.textContent = opt;
-                                      el.value = opt;
-                                      select.appendChild(el);
-
-                                  }
-                              }
+                              select.appendChild(data);
                 }
                 	});
                 	}
 
 
+
+
                 function loadDocs() {
-
-
-                    var method = "CommonDocs";
-                    $.post("../dao/fetchCommonServiceInfo.php", {method: method}, function (data, status) {
-
-
-
-                        var select = document.getElementById("commondocuments");
-
+                    var select = document.getElementById("commondocuments");
+                        $.ajax({
+          	              type:"POST",
+                            url: "${pageContext.request.contextPath}/result/common.do",
+                            success: function(data){
                         var options = data.split(",");
 
                         var i;
@@ -404,7 +358,9 @@ function addTable() {
 
                             }
                         }
-                    });
+                            }
+                            });   
+                    
                 }
 
 
@@ -450,29 +406,11 @@ function addTable() {
                         alert("Provide Contact Details ");
                         $("#contact").focus();
                     }
-                    else
-                    {
-                        var valid = 1;
-                        var name = document.getElementById("Service_name").value;
-                        var e = document.getElementById("Department_id");
-                        var deptno = e.options[e.selectedIndex].value;
-
-                        $.post("../dao/checkservicename.php", {name: name, deptno: deptno}, function (data, status) {
-
-                            if (data.toString() == "0")
-                            {
-                                alert("Service already exist in Department");
-                                $("Service_name").css('visibility', 'hidden');
-                                valid = 0;
-                            }
-                            else
+                     else
                             {
                                 addService();
                             }
 
-                        });
-
-                    }
                 }
 
 
@@ -622,7 +560,7 @@ function addTable() {
 
                     var service_name_serv = $("#Service_name").val();
 
-                    $.post("../dao/insertXML.php", {xml: xml, service_name_serv: service_name_serv, deptno: deptno, contact: contact}, function (data, status) {
+                    $.post("${pageContext.request.contextPath}/result/Newserv.do", {xml: xml, service_name_serv: service_name_serv, deptno: deptno, contact: contact}, function (data, status) {
 
                         if (data.search("true") != -1) {
                             var init = data.indexOf("[");

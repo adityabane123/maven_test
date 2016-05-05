@@ -23,7 +23,7 @@ public class DepartmentsDAOImpl implements DepartmentsDAO{
 	public List<departments> getalllist(String state) {
 		// TODO Auto-generated method stub
 		List<departments> list=new ArrayList<departments>();  
-		list=template.find("from departments");
+		list=template.find("from departments k where k.state_id=? and k.is_active=1",state);
 		return list; 
 	}
 

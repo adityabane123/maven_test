@@ -47,7 +47,6 @@ window.open("http://localhost:8080/sampark/Viewserviceinfo.do");*/
     <td><c:out value="${listVar.submitted_date}"/></td>
     <td><input type="button" value="Show" id="sh" onclick="myfun1('${listVar.service_id}');"/></td>
     </tr>
-    <!--<c:out value="${listVar.service_name}"/>-->
 </c:forEach>
 </table>
 <a href='<c:url value="http://localhost:8080/sampark/New_service.do" />'>Home</a>

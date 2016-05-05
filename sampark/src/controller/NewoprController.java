@@ -23,11 +23,23 @@ import org.springframework.web.servlet.ModelAndView;
 import dao.CfuserDAO;
 import mypack.cfusers;
 
+import java.util.Properties;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.mail.Authenticator;
 
 @Controller
 @RequestMapping("/New_operator")
 public class NewoprController {
 
+	static int i=0;
+	
 	@Autowired
 	public CfuserDAO cfuserdao;
 	
@@ -47,6 +59,8 @@ public class NewoprController {
 		 * if (result.hasErrors()) {
 			return new ModelAndView("New_operator");
 		}*/
+        String role=cfuser.getAuthority();
+        cfuser.setUser_name(role+"Aditya"+i++);
 		if(cfuser.getAssigned_officer_id()=="")
 		{
 			cfuser.setAssigned_officer_id(((String) session.getAttribute("username")));
@@ -59,6 +73,8 @@ public class NewoprController {
 		Date date = new Date();
 		String created_on=dateFormat.format(date); //2014/08/06 15:59:48
 		cfuser.setCreated_on(created_on);
+		String email=cfuser.getEmail();
+		emailfunction(email,cfuser.getUser_name());
 		//cfuser.setAuthority((String) session.getAttribute("userid"));
 		cfuserdao.saveuser(cfuser);	
 		return new ModelAndView("All_service");
@@ -85,5 +101,49 @@ public class NewoprController {
 		 //System.out.println("after result");
 	        return result;
 	    }
+	 
+	 public void emailfunction(String email,String username)
+	 {
+		 System.out.println("inside email1");
+			
+			Properties prop =new Properties();
+			  prop.put("mail.smtp.host", "smtp.gmail.com");  
+			  prop.put("mail.smtp.socketFactory.port", "465");  
+			  prop.put("mail.smtp.socketFactory.class",  
+			            "javax.net.ssl.SSLSocketFactory");  
+			  prop.put("mail.smtp.auth", "true");  
+			  prop.put("mail.smtp.port", "587"); 
+			  
+			  Session session = Session.getDefaultInstance(prop,  
+					   new Authenticator(){  
+					   protected PasswordAuthentication getPasswordAuthentication() {  
+					   return new PasswordAuthentication("adityabane123@gmail.com","100$103#108@");//change accordingly  
+					   }  
+					  });
+			  System.out.println("inside email2");
+			  
+			  try {  
+				   MimeMessage message = new MimeMessage(session);  
+				   message.setFrom(new InternetAddress("adityabane123@gmail.com"));//change accordingly  
+				   message.addRecipient(Message.RecipientType.TO,new InternetAddress(email));  
+				   message.setSubject("User Details");  
+				   message.setText("Your Username is"+username+" and password is Welcome123");  
+				     
+				   
+				   /*
+				    * Always remember to go 
+				    * https://www.google.com/settings/security/lesssecureapps
+				    * and turn on that
+				    * 
+				    * 
+				    */
+				   //send message  
+				   Transport.send(message);  
+				  
+				   System.out.println("message sent successfully");  
+				   
+				  } catch (MessagingException e) {throw new RuntimeException(e);}  
+		}
+		 
+	 }
 
-}
