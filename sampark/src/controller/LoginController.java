@@ -70,6 +70,7 @@ public ModelAndView confvoter(@Valid @ModelAttribute("login") cfusers cfuser, Bi
 	session.setAttribute("state_id", state_id);
 	
 	mylist=servicedao.getalllist();
+	
 		  logger.info("Going to run HelloLoggingController class POST");  
 		return new ModelAndView("All_service","mylist",mylist);
 	//int id=Integer.parseInt(ref);

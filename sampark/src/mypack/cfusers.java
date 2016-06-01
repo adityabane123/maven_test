@@ -12,12 +12,11 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Entity
 @Table(name = "cfusers")
 public class cfusers {
-	@Id @GeneratedValue
-	private int id;
 	private String user_name;
 	private String pass;
 	private String authority;
 	private String state;
+	@Id
 	private String user_id;
 	private String assigned_officer_id;
 	private String fname;
@@ -102,16 +101,10 @@ public class cfusers {
 	}
 	@Override
 	public String toString() {
-		return "cfusers [id=" + id + ", user_name=" + user_name + ", pass=" + pass + ", authority=" + authority
+		return "cfusers [user_name=" + user_name + ", pass=" + pass + ", authority=" + authority
 				+ ", state=" + state + ", user_id=" + user_id + ", assigned_officer_id=" + assigned_officer_id
 				+ ", fname=" + fname + ", lname=" + lname + ", email=" + email + ", contact=" + contact
 				+ ", created_on=" + created_on + ", active_flag=" + active_flag + "]";
 	}
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
-	
+
 }

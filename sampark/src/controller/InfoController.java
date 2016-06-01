@@ -54,9 +54,15 @@ public class InfoController {
 public ModelAndView beforeshow(HttpServletRequest req,HttpSession session)
 	{
 Map<String,String> docsmap=new HashMap<String,String>();
+Map<String,String> otherinfo=new HashMap<String,String>();
 String service_id=req.getParameter("id");
 String filePath = "D:/"+service_id+".xml";
 service_status st=servicedao.getservice(service_id);
+String dept_id="";
+String eli="";
+String fee="";
+String sum="";
+String edd="";
 Blob xml=st.getSubmitted_services();
 try {
 	InputStream inputStream = xml.getBinaryStream();
@@ -79,6 +85,36 @@ try {
     DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
     Document doc = dBuilder.parse(inputFile);
     doc.getDocumentElement().normalize();
+    
+    NodeList nList2 = doc.getElementsByTagName("Department");
+    Node nNode2 = nList2.item(0);
+    Element eElement2 = (Element) nNode2;
+    dept_id=eElement2.getAttribute("name");
+    
+    NodeList nList1 = doc.getElementsByTagName("category");
+	
+	System.out.println("----------------------------");
+
+	for (int temp = 0; temp < nList1.getLength(); temp++) {
+
+		Node nNode = nList1.item(temp);
+				
+		//System.out.println("\nCurrent Element :" + nNode.getNodeName());
+				
+		if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+
+			Element eElement = (Element) nNode;
+
+			//System.out.println("Staff id : " + eElement.getAttribute("id"));
+			 eli=eElement.getElementsByTagName("eligibility").item(0).getTextContent();
+			 fee=eElement.getElementsByTagName("fee").item(0).getTextContent();
+			 sum=eElement.getElementsByTagName("Summary").item(0).getTextContent();
+			 edd=eElement.getElementsByTagName("expected_delivery_date").item(0).getTextContent();
+
+		}
+	}
+    
+  
     //System.out.println("Root element :"+ doc.getDocumentElement().getNodeName());
     NodeList nList = doc.getElementsByTagName("document_info");
     printNote1(nList,docsmap);
@@ -86,21 +122,18 @@ try {
  } catch (Exception e) {
     e.printStackTrace();
  }
-String userstate=(String) session.getAttribute("state");
-m_states sta=statedao.getstate(userstate);
-String statid=sta.getState_id();
 //System.out.println(statid);
-List <departments> depilist= deptdao.getdeptalllist(statid);
-Iterator<departments> CrunchifyIterator = depilist.iterator();
-Map<String,String> depa=new HashMap<String,String>();
-while (CrunchifyIterator.hasNext()) {
-	departments dept=CrunchifyIterator.next();
-	depa.put(dept.getDept_id(),dept.getDept_name());
-}
+departments dep=deptdao.getdept(dept_id);
+String dept_name=dep.getDept_name();
 ModelAndView mav = new ModelAndView("Viewserviceinfo");
 mav.addObject("myserv",docsmap);
+mav.addObject("other", otherinfo);
 mav.addObject("serv", st);
-mav.addObject("deptnames",depa); 
+mav.addObject("dept_name", dept_name);
+mav.addObject("eli", eli);
+mav.addObject("fee", fee);
+mav.addObject("sum", sum);
+mav.addObject("edd", edd);
 return mav;  
 }
 

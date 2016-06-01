@@ -12,8 +12,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "service_status")
 public class service_status {
-	@Id @GeneratedValue
-	private int id;
+
 	private String operator_id;
 	private String service_name;
 	private String status;
@@ -23,16 +22,12 @@ public class service_status {
 	private Date approved_date;
 	private String remark;
 	private Date rejected_date;
+	@Id 
 	private String service_id;
 	private String procedure_doc;
 	private String reviewer_id;
 	private String contact;
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
+
 	public String getOperator_id() {
 		return operator_id;
 	}
@@ -113,7 +108,7 @@ public class service_status {
 	}
 	@Override
 	public String toString() {
-		return "service_status [id=" + id + ", operator_id=" + operator_id + ", service_name=" + service_name
+		return "service_status [operator_id=" + operator_id + ", service_name=" + service_name
 				+ ", status=" + status + ", submitted_services=" + submitted_services + ", officer_id=" + officer_id
 				+ ", submitted_date=" + submitted_date + ", approved_date=" + approved_date + ", remark=" + remark
 				+ ", rejected_date=" + rejected_date + ", service_id=" + service_id + ", procedure_doc=" + procedure_doc

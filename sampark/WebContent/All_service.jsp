@@ -2,10 +2,23 @@
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html ng-app>
+<html  ng-app>
 <head>
 <script src="js/angular.js"></script>
+<!--  <script src="js/my.js"></script>-->
 <script type="text/javascript">
+var app=angular
+.module("mymodule",[])
+.controller("mycontroller",function($http,$scope){
+      $http({
+     method:"GET",
+     url:"${pageContext.request.contextPath}/result/angu.do"})
+      .then(function(response){
+       $scope.employee=response.data;
+          });
+    });
+
+
 function myfun1(service_id)
 {
 	var mapForm = document.createElement("form");
@@ -28,6 +41,8 @@ if (map) {
 /*alert(service_id);
 window.open("http://localhost:8080/sampark/Viewserviceinfo.do");*/
 }
+
+
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>All Service</title>
@@ -58,6 +73,8 @@ window.open("http://localhost:8080/sampark/Viewserviceinfo.do");*/
          
          <h1>Hello {{yourName}}!</h1>
       </div>-->
-
+<div>
+10+20={{10+20}}
+</div>
 </body>
 </html>

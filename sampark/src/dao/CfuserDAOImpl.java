@@ -49,4 +49,13 @@ public class CfuserDAOImpl implements CfuserDAO{
 		
 	}
 
+	@Override
+	public int getcount(String con) {
+		List<cfusers> list=new ArrayList<cfusers>();  
+		int cn=template.find("from cfusers k where k.user_name like ?",con).size();
+	//	list=template.loadAll(Employee.class);
+	//	cfusers ref=list.get(0);
+		return ++cn;
+	}
+
 }

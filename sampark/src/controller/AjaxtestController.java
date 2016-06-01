@@ -49,10 +49,9 @@ public class AjaxtestController {
 		 Iterator<cfusers> CrunchifyIterator = reviewerlist.iterator();
 		 while (CrunchifyIterator.hasNext()) {
 				cfusers cf=CrunchifyIterator.next();
-				result+="<option value='ss'>ss</option>";
+				result+="<option value='"+cf.getUser_name()+"'>"+cf.getUser_name()+"</option>";
 				//System.out.println(cf.getUser_name()+cf.getUser_name());
 			}
-		 result="gw";
 		 System.out.println(result);
 		 System.out.println("after result");
 	        return result;
@@ -65,6 +64,7 @@ public class AjaxtestController {
 		 String state=(String)session.getAttribute("state_id");
 		 List <languages> langlist=departdao.getlang(state);
 		 Iterator<languages> CrunchifyIterator = langlist.iterator();
+		 result="<option value='select_lang'>Select Language </option>";
 		 while (CrunchifyIterator.hasNext()) {
 				languages cf=CrunchifyIterator.next();
 				result+="<option value='"+cf.getLang_id()+"'>"+cf.getLanguage()+"</option>";
@@ -84,6 +84,7 @@ public class AjaxtestController {
 		 String state=(String)session.getAttribute("state_id");
 		 List <departments> deptlist=departdao.getalllist(state);
 		 Iterator<departments> CrunchifyIterator = deptlist.iterator();
+		 result="<option value='select_depa'>Select Department</option>  ";
 		 while (CrunchifyIterator.hasNext()) {
 				departments cf=CrunchifyIterator.next();
 				result+="<option value='"+cf.getDept_id()+"'>"+cf.getDept_name()+"</option>";
@@ -133,6 +134,22 @@ public class AjaxtestController {
 	 @ResponseBody    
 	 public String saveserv() {
 		 String result="0";
+		 /*List <common_doc> deptlist=departdao.getdocs();
+		 Iterator<common_doc> CrunchifyIterator = deptlist.iterator();
+		 while (CrunchifyIterator.hasNext()) {
+			 common_doc cf=CrunchifyIterator.next();
+				result+=cf.getDoc_name()+",";
+				//System.out.println(cf.getUser_name()+cf.getUser_name());
+			}
+		 System.out.println(result);*/
+		 return result;
+		 
+	 }
+	 
+	 @RequestMapping(value = "/angu",method = RequestMethod.GET)
+	 @ResponseBody    
+	 public String angu() {
+		 String result="Rachana";
 		 /*List <common_doc> deptlist=departdao.getdocs();
 		 Iterator<common_doc> CrunchifyIterator = deptlist.iterator();
 		 while (CrunchifyIterator.hasNext()) {

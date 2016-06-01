@@ -22,6 +22,7 @@ public class ServiceDAOImpl implements ServiceDAO{
 		// TODO Auto-generated method stub
 		List<service_status> list=new ArrayList<service_status>();  
 		list=template.find("from service_status m");
+		
 		return list; 
 	}
 

@@ -18,15 +18,12 @@ visibility: hidden;
 function aja1()
 {
 var sevalue=document.getElementById("ch").value;
-if(sevalue=="Operator")
+if(sevalue=="operator")
 {
-	alert("hi");
    $.ajax({
 	              type:"POST",
                   url: "${pageContext.request.contextPath}/result/ajaxtest.do",
                   success: function(data){
-                	  alert("hi");
-                	  alert(data);
                 	  $('#sub_cat').append(data);
 $("#sub_cat").css('visibility', 'visible');
           },
@@ -55,8 +52,8 @@ $("#sub_cat").css('visibility', 'hidden');
                 <tr>
 					<td>User Type: </td>
 					<td><form:select path="authority" onchange="aja1()" id="ch" name="ch">
-                        <form:option value="Operator">Operator</form:option>  
-                <form:option selected="true" value="Reviewer">Reviewer</form:option>  
+                        <form:option value="operator">Operator</form:option>  
+                <form:option selected="true" value="reviewer">Reviewer</form:option>  
                         </form:select>
                    </td>
                    <td><form:select name="sub_cat" id="sub_cat" path="assigned_officer_id">

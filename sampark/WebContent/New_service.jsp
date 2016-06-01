@@ -162,14 +162,13 @@ function addTable() {
                         <td class = "heading">Language	:</td>
                         <td class = "input_field">
                             <select id="input_languages" style="width: 75%;">
-                                <option>Select Language </option>
                             </select>
                         </td>
                     </tr>
 				<tr>
 					<td class = "heading">Select Department: </td>
 					<td class = "input_field"><select id="ch" name="ch">    
-                    <option value="select_depa">Select Department</option>   
+                     
 </select></td>
 				</tr>
                     <tr id="tr_service_name">
@@ -300,9 +299,7 @@ function addTable() {
       	              type:"POST",
                         url: "${pageContext.request.contextPath}/result/lang.do",
                         success: function(data){
-                        	alert(data);
-                            var select = document.getElementById("input_languages");
-                           select.appendChild(data);
+                        	$("#input_languages").html(data);
                 },
          error: function(e){
       	                alert('Error: ' + e);
@@ -319,9 +316,7 @@ function addTable() {
         	              type:"POST",
                           url: "${pageContext.request.contextPath}/result/depart.do",
                           success: function(data){
-                              alert(data);
-                              var select = document.getElementById("ch");
-                              select.appendChild(data);
+                        	  $("#ch").html(data);
                 }
                 	});
                 	}
@@ -563,10 +558,11 @@ function addTable() {
                     $.post("${pageContext.request.contextPath}/result/Newserv.do", {xml: xml, service_name_serv: service_name_serv, deptno: deptno, contact: contact}, function (data, status) {
 
                         if (data.search("true") != -1) {
+                            alert("Service Created Successfully");
                             var init = data.indexOf("[");
                             var fin = data.indexOf("]");
-                            var ser_id_post = data.substr(init + 1, fin - init - 1);
-                            file_data(ser_id_post);
+                            //var ser_id_post = data.substr(init + 1, fin - init - 1);
+                            //file_data(ser_id_post);
 
                         }
                         else
