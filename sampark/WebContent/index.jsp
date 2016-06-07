@@ -13,6 +13,7 @@
 		color:red;
 	}
 </style>
+<script src="js/angular.js"></script>
 </head>
 <body>
 
@@ -36,5 +37,9 @@
 				</tr>
 </table>  
 </form:form>
+<div ng-app>
+    <input type="text" ng-model="data.message" />
+    <h1>{{ data.message }}</h1>
+    </div>
 </body>
 </html>

@@ -2,23 +2,33 @@
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html  ng-app>
+<html>
 <head>
 <script src="js/angular.js"></script>
 <!--  <script src="js/my.js"></script>-->
 <script type="text/javascript">
+var message="heyyyyyyyyyy";
 var app=angular
 .module("mymodule",[])
 .controller("mycontroller",function($http,$scope){
       $http({
      method:"GET",
+     data: { 'message' : 'heyyyyyyyy' },
      url:"${pageContext.request.contextPath}/result/angu.do"})
       .then(function(response){
+    	  alert(response.data);
        $scope.employee=response.data;
           });
     });
 
 
+
+/*var app=angular
+.module("mymodule",[])
+.controller("mycontroller",function($scope){
+	$scope.employee="Adityas";
+})*/	
+	
 function myfun1(service_id)
 {
 	var mapForm = document.createElement("form");
@@ -47,7 +57,7 @@ window.open("http://localhost:8080/sampark/Viewserviceinfo.do");*/
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>All Service</title>
 </head>
-<body>
+<body ng-app="mymodule">
 <h1><c:out value="${sessionScope.username}"/></h1>
 <table>
 <tr>
@@ -66,6 +76,7 @@ window.open("http://localhost:8080/sampark/Viewserviceinfo.do");*/
 </table>
 <a href='<c:url value="http://localhost:8080/sampark/New_service.do" />'>Home</a>
 <a href='<c:url value="http://localhost:8080/sampark/New_operator.do" />'>New Operator</a>
+<a href='<c:url value="http://localhost:8080/sampark/All_operator.do" />'>All Operator</a>
       <!--<div>
          <label>Name:</label>
          <input type = "text" ng-model = "yourName" placeholder = "Enter a name here">
@@ -75,6 +86,9 @@ window.open("http://localhost:8080/sampark/Viewserviceinfo.do");*/
       </div>-->
 <div>
 10+20={{10+20}}
+<div ng-controller="mycontroller">
+{{employee}}
+</div>
 </div>
 </body>
 </html>

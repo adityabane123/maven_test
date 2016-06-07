@@ -1,8 +1,5 @@
 {
-  "libs": [
-    "ecma5",
-    "browser"
-  ],
+  "ecmaVersion": 5,
   "plugins": {
     "guess-types": {
       
@@ -10,8 +7,12 @@
     "outline": {
       
     },
-    "angular1": {
+    "angular": {
       
     }
-  }
+  },
+  "libs": [
+    "ecma5",
+    "browser"
+  ]
 }

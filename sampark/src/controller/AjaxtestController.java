@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -148,8 +148,8 @@ public class AjaxtestController {
 	 
 	 @RequestMapping(value = "/angu",method = RequestMethod.GET)
 	 @ResponseBody    
-	 public String angu() {
-		 String result="Rachana";
+	 public String angu(HttpServletRequest request) {
+		 String result="Aditya";
 		 /*List <common_doc> deptlist=departdao.getdocs();
 		 Iterator<common_doc> CrunchifyIterator = deptlist.iterator();
 		 while (CrunchifyIterator.hasNext()) {
@@ -158,6 +158,8 @@ public class AjaxtestController {
 				//System.out.println(cf.getUser_name()+cf.getUser_name());
 			}
 		 System.out.println(result);*/
+		 System.out.println("inside angu");
+		 System.out.println(request.getParameter("message"));
 		 return result;
 		 
 	 }
