@@ -15,13 +15,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import dao.CfuserDAO;
 import dao.DepartmentsDAO;
+import mypack.Person;
 import mypack.cfusers;
 import mypack.common_doc;
 import mypack.departments;
@@ -146,9 +149,9 @@ public class AjaxtestController {
 		 
 	 }
 	 
-	 @RequestMapping(value = "/angu",method = RequestMethod.GET)
+	 @RequestMapping(value = "/angu",method = RequestMethod.POST)
 	 @ResponseBody    
-	 public String angu(HttpServletRequest request) {
+	 public String angu(@RequestParam("name") String name) {
 		 String result="Aditya";
 		 /*List <common_doc> deptlist=departdao.getdocs();
 		 Iterator<common_doc> CrunchifyIterator = deptlist.iterator();
@@ -159,7 +162,7 @@ public class AjaxtestController {
 			}
 		 System.out.println(result);*/
 		 System.out.println("inside angu");
-		 System.out.println(request.getParameter("message"));
+		 System.out.println(name);
 		 return result;
 		 
 	 }

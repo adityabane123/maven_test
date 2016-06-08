@@ -7,12 +7,11 @@
 <script src="js/angular.js"></script>
 <!--  <script src="js/my.js"></script>-->
 <script type="text/javascript">
-var message="heyyyyyyyyyy";
-var app=angular
+/*var app=angular
 .module("mymodule",[])
 .controller("mycontroller",function($http,$scope){
       $http({
-     method:"GET",
+     method:"POST",
      data: { 'message' : 'heyyyyyyyy' },
      url:"${pageContext.request.contextPath}/result/angu.do"})
       .then(function(response){
@@ -20,7 +19,17 @@ var app=angular
        $scope.employee=response.data;
           });
     });
+*/
 
+var app=angular
+.module("mymodule",[])
+.controller("mycontroller",function($http,$scope){
+var data = 'name=Aditya';								
+$http.post('${pageContext.request.contextPath}/result/angu.do', data )
+.success(function(data, status, headers, config) {
+	$scope.employee=data;
+});
+});
 
 
 /*var app=angular

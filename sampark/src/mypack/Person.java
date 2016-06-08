@@ -11,5 +11,10 @@ public void setMessage(String message) {
 	Message = message;
 }
 
+public Person(String message) {
+	super();
+	Message = message;
+}
+
 
 }
