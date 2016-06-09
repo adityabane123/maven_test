@@ -149,21 +149,11 @@ public class AjaxtestController {
 		 
 	 }
 	 
-	 @RequestMapping(value = "/angu",method = RequestMethod.POST)
-	 @ResponseBody    
-	 public String angu(@RequestParam("name") String name) {
-		 String result="Aditya";
-		 /*List <common_doc> deptlist=departdao.getdocs();
-		 Iterator<common_doc> CrunchifyIterator = deptlist.iterator();
-		 while (CrunchifyIterator.hasNext()) {
-			 common_doc cf=CrunchifyIterator.next();
-				result+=cf.getDoc_name()+",";
-				//System.out.println(cf.getUser_name()+cf.getUser_name());
-			}
-		 System.out.println(result);*/
+	 @RequestMapping(value = "/angu",method = RequestMethod.POST)    
+	 public @ResponseBody String angu(@RequestBody Person company) {
 		 System.out.println("inside angu");
-		 System.out.println(name);
-		 return result;
+		 System.out.println(company.toString());
+		 return "JSON: The company name: " + company.getName() + ", Employees count: " + company.getPhone() + ", Headoffice: " + company.getLocation();
 		 
 	 }
 }

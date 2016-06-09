@@ -2,33 +2,59 @@
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html ng-app="mymodule">
 <head>
 <script src="js/angular.js"></script>
 <!--  <script src="js/my.js"></script>-->
 <script type="text/javascript">
-/*var app=angular
-.module("mymodule",[])
-.controller("mycontroller",function($http,$scope){
+
+var app = angular.module('mymodule', []);
+
+app.controller("mycontroller",function($http,$scope){
+	var dataObj = {
+			"name" : "Java Honk",
+			"location" : "NY",
+			"phone" : "123456789"
+	};
+	/*var data = 'name=aditya';
       $http({
      method:"POST",
-     data: { 'message' : 'heyyyyyyyy' },
+     data: data,
      url:"${pageContext.request.contextPath}/result/angu.do"})
-      .then(function(response){
-    	  alert(response.data);
-       $scope.employee=response.data;
-          });
+      .then(function(data, status, headers, config){
+       $scope.employee=data;
+          });*/
+	var res = $http.post('${pageContext.request.contextPath}/result/angu.do', dataObj);
+	res.success(function(data, status, headers, config) {
+		alert(data);
+		$scope.employee = data;
+	});
+	res.error(function(data, status, headers, config) {
+		alert( "failure message: " + JSON.stringify({data: data}));
+	});		
     });
-*/
 
-var app=angular
-.module("mymodule",[])
-.controller("mycontroller",function($http,$scope){
-var data = 'name=Aditya';								
-$http.post('${pageContext.request.contextPath}/result/angu.do', data )
-.success(function(data, status, headers, config) {
-	$scope.employee=data;
-});
+
+
+/*var serviceModule = angular.module('mymodule', []);
+
+serviceModule.controller("mycontroller", function($scope, $http) {
+	
+		//$scope.variable = "AngularJS POST Spring MVC Example:";	
+		var dataObj = {
+				"name" : "Java Honk",
+				"location" : "NY",
+				"phone" : "123456789"
+		};		
+		
+		var response = $http.post('${pageContext.request.contextPath}/result/angu.do', dataObj);
+		response.success(function(data, status, headers, config) {
+			$scope.employee = data;
+		});
+		response.error(function(data, status, headers, config) {
+			alert( "Exception details: " + JSON.stringify({data: data}));
+		});
+	
 });
 
 
@@ -66,7 +92,7 @@ window.open("http://localhost:8080/sampark/Viewserviceinfo.do");*/
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>All Service</title>
 </head>
-<body ng-app="mymodule">
+<body ng-controller="mycontroller">
 <h1><c:out value="${sessionScope.username}"/></h1>
 <table>
 <tr>
@@ -86,18 +112,9 @@ window.open("http://localhost:8080/sampark/Viewserviceinfo.do");*/
 <a href='<c:url value="http://localhost:8080/sampark/New_service.do" />'>Home</a>
 <a href='<c:url value="http://localhost:8080/sampark/New_operator.do" />'>New Operator</a>
 <a href='<c:url value="http://localhost:8080/sampark/All_operator.do" />'>All Operator</a>
-      <!--<div>
-         <label>Name:</label>
-         <input type = "text" ng-model = "yourName" placeholder = "Enter a name here">
-         <hr />
-         
-         <h1>Hello {{yourName}}!</h1>
-      </div>-->
 <div>
 10+20={{10+20}}
-<div ng-controller="mycontroller">
 {{employee}}
-</div>
 </div>
 </body>
 </html>
