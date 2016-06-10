@@ -7,7 +7,6 @@
 <script src="js/angular.js"></script>
 <!--  <script src="js/my.js"></script>-->
 <script type="text/javascript">
-
 var app = angular.module('mymodule', []);
 
 app.controller("mycontroller",function($http,$scope){
@@ -24,16 +23,20 @@ app.controller("mycontroller",function($http,$scope){
       .then(function(data, status, headers, config){
        $scope.employee=data;
           });*/
-	var res = $http.post('${pageContext.request.contextPath}/result/angu.do', dataObj);
+          alert("inside ajax");
+	var res = $http.get('${pageContext.request.contextPath}/result/angu.do', dataObj);
 	res.success(function(data, status, headers, config) {
 		alert(data);
-		$scope.employee = data;
+		$scope.employees = data;
+		$scope.sortCol=data.service_name;
 	});
 	res.error(function(data, status, headers, config) {
+		alert(JSON.stringify(data));
 		alert( "failure message: " + JSON.stringify({data: data}));
-	});		
+	});	
+	
+	
     });
-
 
 
 /*var serviceModule = angular.module('mymodule', []);
@@ -114,7 +117,26 @@ window.open("http://localhost:8080/sampark/Viewserviceinfo.do");*/
 <a href='<c:url value="http://localhost:8080/sampark/All_operator.do" />'>All Operator</a>
 <div>
 10+20={{10+20}}
-{{employee}}
+Order By :<select ng-model="sortCol">
+<option value="service_name">Service Name</option>
+<option value="submitted_date">Submitted Date</option>
+</select>
+<table>
+<thead>
+<tr>
+<th>Service Name</th>
+<th>Status</th>
+<th>Submitted Date</th>
+</tr>
+</thead>
+<tbody>
+<tr ng-repeat="employee in employees | orderBy:sortCol">
+<td>{{employee.service_name}}</td>
+<td>{{employee.status}}</td>
+<td>{{employee.submitted_date}}</td>
+</tr>
+</tbody>
+</table>
 </div>
 </body>
 </html>

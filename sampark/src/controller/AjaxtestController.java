@@ -12,6 +12,8 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,13 +24,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+
 import dao.CfuserDAO;
 import dao.DepartmentsDAO;
+import dao.ServiceDAO;
 import mypack.Person;
 import mypack.cfusers;
 import mypack.common_doc;
 import mypack.departments;
 import mypack.languages;
+import mypack.service_status;
 
 
 @Controller
@@ -40,6 +46,15 @@ public class AjaxtestController {
 	
 	@Autowired
 	public DepartmentsDAO departdao;
+	
+	List <service_status>mylist;
+	
+	@Autowired
+	public ServiceDAO servicedao;
+	
+	public List<service_status> getMylist() {
+		return mylist;
+	}
 	
 	 @RequestMapping(value = "/ajaxtest",method = RequestMethod.POST)
 	 @ResponseBody    
@@ -149,11 +164,20 @@ public class AjaxtestController {
 		 
 	 }
 	 
-	 @RequestMapping(value = "/angu",method = RequestMethod.POST)    
-	 public @ResponseBody String angu(@RequestBody Person company) {
+	 /*@RequestMapping(value = "/angu",method = RequestMethod.POST)    
+	 public @ResponseBody Person angu(@RequestBody Person company) {
 		 System.out.println("inside angu");
 		 System.out.println(company.toString());
-		 return "JSON: The company name: " + company.getName() + ", Employees count: " + company.getPhone() + ", Headoffice: " + company.getLocation();
-		 
+			return company;
+	 }*/
+	 
+	 @RequestMapping(value = "/angu",method = RequestMethod.GET)    
+	 public @ResponseBody String angu() {	 
+		 mylist=servicedao.getalllist();
+		 Gson gson = new Gson();
+		 // convert your list to json
+		 String jsonCartList = gson.toJson(mylist);
+		 System.out.println(jsonCartList);
+		 return jsonCartList;
 	 }
 }
