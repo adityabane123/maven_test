@@ -23,12 +23,10 @@ app.controller("mycontroller",function($http,$scope){
       .then(function(data, status, headers, config){
        $scope.employee=data;
           });*/
-          alert("inside ajax");
 	var res = $http.get('${pageContext.request.contextPath}/result/angu.do', dataObj);
 	res.success(function(data, status, headers, config) {
-		alert(data);
 		$scope.employees = data;
-		$scope.sortCol=data.service_name;
+		$scope.sortCol="service_name";
 	});
 	res.error(function(data, status, headers, config) {
 		alert(JSON.stringify(data));
@@ -96,7 +94,7 @@ window.open("http://localhost:8080/sampark/Viewserviceinfo.do");*/
 <title>All Service</title>
 </head>
 <body ng-controller="mycontroller">
-<h1><c:out value="${sessionScope.username}"/></h1>
+<!--<h1><c:out value="${sessionScope.username}"/></h1>
 <table>
 <tr>
                 <th align="center">Service Name</th>
@@ -106,21 +104,26 @@ window.open("http://localhost:8080/sampark/Viewserviceinfo.do");*/
 </tr>
 <c:forEach var="listVar" items="${mylist}">
     <tr><td><c:out value="${listVar.service_name}"/></td>
-    <td><c:out value="${listVar.status}"/></td>
+    <td><c:out value="${listVar.status}"/></td> 
     <td><c:out value="${listVar.submitted_date}"/></td>
     <td><input type="button" value="Show" id="sh" onclick="myfun1('${listVar.service_id}');"/></td>
     </tr>
 </c:forEach>
-</table>
+</table> -->
 <a href='<c:url value="http://localhost:8080/sampark/New_service.do" />'>Home</a>
 <a href='<c:url value="http://localhost:8080/sampark/New_operator.do" />'>New Operator</a>
 <a href='<c:url value="http://localhost:8080/sampark/All_operator.do" />'>All Operator</a>
 <div>
-10+20={{10+20}}
+<br>
 Order By :<select ng-model="sortCol">
 <option value="service_name">Service Name</option>
 <option value="submitted_date">Submitted Date</option>
 </select>
+<br>
+<br>
+Serch By Name : <input type="text" ng-model="searchtxt.service_name">
+<br>
+<br>
 <table>
 <thead>
 <tr>
@@ -130,10 +133,11 @@ Order By :<select ng-model="sortCol">
 </tr>
 </thead>
 <tbody>
-<tr ng-repeat="employee in employees | orderBy:sortCol">
+<tr ng-repeat="employee in employees | orderBy:sortCol | filter:searchtxt">
 <td>{{employee.service_name}}</td>
 <td>{{employee.status}}</td>
 <td>{{employee.submitted_date}}</td>
+<td><input type="button" value="Show" id="{{employee.service_id}}" onclick="myfun1('this.id');"/></td>
 </tr>
 </tbody>
 </table>

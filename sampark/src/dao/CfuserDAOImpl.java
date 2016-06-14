@@ -23,8 +23,19 @@ public class CfuserDAOImpl implements CfuserDAO{
 		List<cfusers> list=new ArrayList<cfusers>();  
 		list=template.find("from cfusers k where k.user_name=? and k.pass=?",username,pass);
 	//	list=template.loadAll(Employee.class);
+		int si=list.size();
+		System.out.println(si);
+		if(si==0)
+		{
+			cfusers ref=new cfusers();
+			ref.setUser_name("wrong");
+			return ref; 
+		}
+		else
+		{
 		cfusers ref=list.get(0);
 		return ref; 
+		}
 	}
 
 	@Override

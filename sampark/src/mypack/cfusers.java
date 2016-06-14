@@ -25,14 +25,14 @@ public class cfusers {
 	private String contact;
 	private String created_on;
 	private boolean active_flag;
-	//@NotEmpty(message="Username can not be empty")
+	@NotEmpty(message="Username can not be empty")
 	public String getUser_name() {
 		return user_name;
 	}
 	public void setUser_name(String user_name) {
 		this.user_name = user_name;
 	}
-	//@NotEmpty(message="Password can not be empty")
+	@NotEmpty(message="Password can not be empty")
 	public String getPass() {
 		return pass;
 	}

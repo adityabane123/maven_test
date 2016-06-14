@@ -13,7 +13,7 @@
 		color:red;
 	}
 </style>
-<script src="js/angular.js"></script>
+<script src="js/angular.js"></script> 
 </head>
 <body>
 
@@ -31,7 +31,7 @@
 					<td><form:errors path="pass" cssClass="error"/></td>
 				</tr>
 				<tr>
-					<td></td>
+					<td class="error"><c:out value="${nousr}"/></td>
 					<td align="center"><input type="submit" value="Login"/></td>
 					<td></td>
 				</tr>

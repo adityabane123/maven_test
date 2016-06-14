@@ -58,10 +58,14 @@ return new ModelAndView("index","login",cf);
 public ModelAndView confvoter(@Valid @ModelAttribute("login") cfusers cfuser, BindingResult result,HttpSession session)
 {
 
-	if (result.hasErrors()) {
+	if (result.hasErrors()) { 
 		return new ModelAndView("index");
 	}
 	cfusers ref=cfuserdao.checklogin(cfuser);
+	if(ref.getUser_name() == "wrong")
+	{
+		return new ModelAndView("index","nousr","Username or Password do not match");
+	}
 	session.setAttribute("username",ref.getUser_name());
 	session.setAttribute("state",ref.getState());
 	String state_id=cfuserdao.getstateid(ref.getState());
@@ -69,10 +73,11 @@ public ModelAndView confvoter(@Valid @ModelAttribute("login") cfusers cfuser, Bi
 	session.setAttribute("authority",ref.getAuthority());
 	session.setAttribute("state_id", state_id);
 	
-	mylist=servicedao.getalllist();
+	//mylist=servicedao.getalllist();
 	
 		  logger.info("Going to run HelloLoggingController class POST");  
-		return new ModelAndView("All_service","mylist",mylist);
+		//return new ModelAndView("All_service","mylist",mylist);
+		return new ModelAndView("All_service");
 	//int id=Integer.parseInt(ref);
 	//List<Candidate>list=candao.can(id);
 	//return new ModelAndView("voting","mycan",list);
