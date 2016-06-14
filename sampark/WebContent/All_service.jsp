@@ -133,12 +133,15 @@ Serch By Name : <input type="text" ng-model="searchtxt.service_name">
 </tr>
 </thead>
 <tbody>
-<tr ng-repeat="employee in employees | orderBy:sortCol | filter:searchtxt">
+<tr ng-repeat="employee in employees | orderBy:sortCol | filter:searchtxt as Result">
 <td>{{employee.service_name}}</td>
 <td>{{employee.status}}</td>
 <td>{{employee.submitted_date}}</td>
 <td><input type="button" value="Show" id="{{employee.service_id}}" onclick="myfun1('this.id');"/></td>
 </tr>
+<p ng-if="!Result.length">
+    Nothing was found
+</p>
 </tbody>
 </table>
 </div>
