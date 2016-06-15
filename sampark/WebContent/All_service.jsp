@@ -5,9 +5,10 @@
 <html ng-app="mymodule">
 <head>
 <script src="js/angular.js"></script>
-<!--  <script src="js/my.js"></script>-->
+<script src="js/dirPagination.js"></script>
+
 <script type="text/javascript">
-var app = angular.module('mymodule', []);
+var app = angular.module('mymodule', ['angularUtils.directives.dirPagination']);
 
 app.controller("mycontroller",function($http,$scope){
 	var dataObj = {
@@ -67,6 +68,7 @@ serviceModule.controller("mycontroller", function($scope, $http) {
 	
 function myfun1(service_id)
 {
+	alert(service_id);
 	var mapForm = document.createElement("form");
     mapForm.target = "Map";
     mapForm.method = "POST"; // or "post" if appropriate
@@ -87,9 +89,22 @@ if (map) {
 /*alert(service_id);
 window.open("http://localhost:8080/sampark/Viewserviceinfo.do");*/
 }
-
-
 </script>
+   <style>  
+     .odd {  
+       background-color: antiquewhite;  
+       color: #008b8b;  
+     }  
+     td th {  
+       height: 30px;  
+       min-width: 100px;  
+     }  
+     thead {  
+       background-color: darkgray;  
+       color: white;  
+       height: 30px;  
+     }  
+</style>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>All Service</title>
 </head>
@@ -133,17 +148,22 @@ Serch By Name : <input type="text" ng-model="searchtxt.service_name">
 </tr>
 </thead>
 <tbody>
-<tr ng-repeat="employee in employees | orderBy:sortCol | filter:searchtxt as Result">
+<tr dir-paginate="employee in employees | itemsPerPage:5 | orderBy:sortCol | filter:paginate | filter:searchtxt as Result">
 <td>{{employee.service_name}}</td>
 <td>{{employee.status}}</td>
 <td>{{employee.submitted_date}}</td>
-<td><input type="button" value="Show" id="{{employee.service_id}}" onclick="myfun1('this.id');"/></td>
-</tr>
+<td><input type="button" value="Show" id="{{employee.service_id}}" onclick="myfun1(this.id);"/></td>
 <p ng-if="!Result.length">
     Nothing was found
 </p>
+</tr>
 </tbody>
 </table>
+ <dir-pagination-controls
+       max-size="5"
+       direction-links="true"
+       boundary-links="true" >
+    </dir-pagination-controls>
 </div>
 </body>
 </html>

@@ -51,7 +51,7 @@ function validate_form() {
 					<td><input type="text" id="fee" size="30" value="${fee}"/></td>
 				</tr>
 				<tr>
-					<td>Expected Deleivery Date </td>
+					<td>Expected Delivery Date </td>
 					<td><input type="text" id="edd" size="30" value="${edd}"/></td>
 				</tr>
 			     <tr>
