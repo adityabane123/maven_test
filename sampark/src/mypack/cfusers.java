@@ -25,6 +25,14 @@ public class cfusers {
 	private String contact;
 	private String created_on;
 	private boolean active_flag;
+	private String captcha;
+	
+	public String getCaptcha() {
+		return captcha;
+	}
+	public void setCaptcha(String captcha) {
+		this.captcha = captcha;
+	}
 	@NotEmpty(message="Username can not be empty")
 	public String getUser_name() {
 		return user_name;

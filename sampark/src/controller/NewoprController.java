@@ -58,7 +58,7 @@ public class NewoprController {
 	public ModelAndView beforecre()
 		{
 	cfusers cf=new cfusers();
-	System.out.println("inside post");
+	System.out.println("inside GET");
 	return new ModelAndView("New_operator","register",cf);	
 		}
 

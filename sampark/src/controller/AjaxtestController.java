@@ -49,6 +49,20 @@ public class AjaxtestController {
 	
 	List <service_status>mylist;
 	
+	List <cfusers>mylist1;
+	
+	public List<cfusers> getMylist1() {
+		return mylist1;
+	}
+
+	public void setMylist1(List<cfusers> mylist1) {
+		this.mylist1 = mylist1;
+	}
+
+	public void setMylist(List<service_status> mylist) {
+		this.mylist = mylist;
+	}
+
 	@Autowired
 	public ServiceDAO servicedao;
 	
@@ -177,6 +191,17 @@ public class AjaxtestController {
 		 Gson gson = new Gson();
 		 // convert your list to json
 		 String jsonCartList = gson.toJson(mylist);
+		 System.out.println(jsonCartList);
+		 return jsonCartList;
+	 }
+	 
+	 @RequestMapping(value = "/angu_opr",method = RequestMethod.GET)    
+	 public @ResponseBody String angu_opr(HttpSession session) {
+		 String state=(String) session.getAttribute("state");
+		 mylist1=cfuserdao.getalllist(state);
+		 Gson gson = new Gson();
+		 // convert your list to json
+		 String jsonCartList = gson.toJson(mylist1);
 		 System.out.println(jsonCartList);
 		 return jsonCartList;
 	 }

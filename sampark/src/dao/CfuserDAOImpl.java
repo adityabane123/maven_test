@@ -51,6 +51,12 @@ public class CfuserDAOImpl implements CfuserDAO{
 		return list; 
 	}
 
+	public List<cfusers> getalllist(String state) {
+		List<cfusers> list=new ArrayList<cfusers>();  
+		list=template.find("from cfusers m where m.state=?",state);
+		return list; 
+	}
+	
 	@Override
 	public String getstateid(String state) {
 		List<m_states> list=new ArrayList<m_states>();

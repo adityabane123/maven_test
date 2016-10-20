@@ -12,4 +12,5 @@ public interface CfuserDAO
 	public List<cfusers> getrevlist(String state);
 	public String getstateid(String state);
 	public int getcount(String con);
+	public List<cfusers> getalllist(String state);
 }

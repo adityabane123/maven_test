@@ -1,18 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
-   <servlet>
-   	<servlet-name>samparkdispatcher</servlet-name>
-   	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-   	<load-on-startup>1</load-on-startup>
-   </servlet>
-   <servlet-mapping>
-   	<servlet-name>samparkdispatcher</servlet-name>
-   	<url-pattern>*.do</url-pattern>
-   </servlet-mapping>
-   <welcome-file-list>
-   	<welcome-file>/index.do</welcome-file>
-   </welcome-file-list>
-   <session-config>
-   	<session-timeout>30</session-timeout>
-   </session-config>
+<web-app version="2.4"
+         xmlns="http://java.sun.com/xml/ns/j2ee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
+         http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd" >
+  <servlet>
+    <servlet-name>samparkdispatcher</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>samparkdispatcher</servlet-name>
+    <url-pattern>*.do</url-pattern>
+  </servlet-mapping>
+  
+  
+  <servlet>
+    <servlet-name>CaptchaServlet</servlet-name>
+    <servlet-class>controller.CaptchaGenServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CaptchaServlet</servlet-name>
+    <url-pattern>/captcha.jpg</url-pattern>
+  </servlet-mapping>
+  
+  <welcome-file-list>
+    <welcome-file>/index.do</welcome-file>
+  </welcome-file-list>
+  <session-config>
+    <session-timeout>30</session-timeout>
+  </session-config>
 </web-app>

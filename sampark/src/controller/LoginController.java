@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -61,6 +62,26 @@ public ModelAndView confvoter(@Valid @ModelAttribute("login") cfusers cfuser, Bi
 	if (result.hasErrors()) { 
 		return new ModelAndView("index");
 	}
+	
+	if (cfuser.getUser_name()==null || cfuser.getUser_name().equals(""))
+	{
+		cfuser.setCaptcha("");
+    	return new ModelAndView("index","nousr","Username or Password do not match");
+	}
+
+
+if (cfuser.getPass()==null || cfuser.getPass().equals(""))
+{
+	cfuser.setCaptcha("");
+	return new ModelAndView("index","nousr","Username or Password do not match");
+}	
+
+ String captcha=(String)session.getAttribute("CAPTCHA");
+    if(captcha==null || (captcha!=null && !captcha.equals(cfuser.getCaptcha()))){
+    	cfuser.setCaptcha("");
+    	return new ModelAndView("index","nousr","Captcha do not match");
+    }
+	
 	cfusers ref=cfuserdao.checklogin(cfuser);
 	if(ref.getUser_name() == "wrong")
 	{

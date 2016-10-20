@@ -56,7 +56,7 @@ public ModelAndView beforeshow(HttpServletRequest req,HttpSession session)
 Map<String,String> docsmap=new HashMap<String,String>();
 Map<String,String> otherinfo=new HashMap<String,String>();
 String service_id=req.getParameter("id");
-String filePath = "D:/"+service_id+".xml";
+String filePath = "/home/aditya/desktop/git/"+service_id+".xml";
 service_status st=servicedao.getservice(service_id);
 String dept_id="";
 String eli="";

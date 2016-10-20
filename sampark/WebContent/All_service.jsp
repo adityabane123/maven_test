@@ -5,10 +5,10 @@
 <html ng-app="mymodule">
 <head>
 <script src="js/angular.js"></script>
-<script src="js/dirPagination.js"></script>
+
 
 <script type="text/javascript">
-var app = angular.module('mymodule', ['angularUtils.directives.dirPagination']);
+var app = angular.module('mymodule', []);
 
 app.controller("mycontroller",function($http,$scope){
 	var dataObj = {
@@ -127,7 +127,7 @@ window.open("http://localhost:8080/sampark/Viewserviceinfo.do");*/
 </table> -->
 <a href='<c:url value="http://localhost:8080/sampark/New_service.do" />'>Home</a>
 <a href='<c:url value="http://localhost:8080/sampark/New_operator.do" />'>New Operator</a>
-<a href='<c:url value="http://localhost:8080/sampark/All_operator.do" />'>All Operator</a>
+<a href='<c:url value="http://localhost:8080/sampark/All_operator1.do" />'>All Operator</a>
 <div>
 <br>
 Order By :<select ng-model="sortCol">
@@ -148,7 +148,7 @@ Serch By Name : <input type="text" ng-model="searchtxt.service_name">
 </tr>
 </thead>
 <tbody>
-<tr dir-paginate="employee in employees | itemsPerPage:5 | orderBy:sortCol | filter:paginate | filter:searchtxt as Result">
+<tr ng-repeat="employee in employees | orderBy:sortCol | filter:paginate | filter:searchtxt as Result">
 <td>{{employee.service_name}}</td>
 <td>{{employee.status}}</td>
 <td>{{employee.submitted_date}}</td>
@@ -159,11 +159,6 @@ Serch By Name : <input type="text" ng-model="searchtxt.service_name">
 </tr>
 </tbody>
 </table>
- <dir-pagination-controls
-       max-size="5"
-       direction-links="true"
-       boundary-links="true" >
-    </dir-pagination-controls>
 </div>
 </body>
 </html>
